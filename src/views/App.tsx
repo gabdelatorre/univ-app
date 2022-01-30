@@ -1,20 +1,36 @@
 import { Provider } from 'react-redux';
 import { NOT_FOUND } from 'redux-first-router';
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
+import { createFirestoreInstance } from 'redux-firestore';
+
 import { store } from '../redux/configureStore';
 import { Routes } from '../redux/routing/routesMap';
 import { useTypedSelector } from '../utils/useTypedSelector';
 import { HomeView } from './Home/HomeView';
 import { LoginView } from './Login/LoginView';
 import { NotFoundView } from './NotFoundView';
+import firebase from '../firebase';
+import { AuthProvider, useAuthContext } from '../providers/AuthProvider';
+
+const rrfProps = {
+  firebase,
+  config: {
+    userProfile: 'users',
+    useFirestoreForProfile: true,
+  },
+  dispatch: store.dispatch,
+  createFirestoreInstance,
+};
 
 const RootView = () => {
+  const { isAuthenticated } = useAuthContext();
   const location = useTypedSelector((state) => state.location.type);
 
   switch (location) {
     case Routes.LOGIN:
-      return <LoginView />;
+      return !isAuthenticated ? <LoginView /> : <HomeView />;
     case Routes.HOME:
-      return <HomeView />;
+      return isAuthenticated ? <HomeView /> : <LoginView />;
     case NOT_FOUND:
     default:
       return <NotFoundView />;
@@ -24,8 +40,11 @@ const RootView = () => {
 const App = () => {
   return (
     <Provider store={store}>
-      {' '}
-      <RootView />{' '}
+      <ReactReduxFirebaseProvider {...rrfProps}>
+        <AuthProvider>
+          <RootView />
+        </AuthProvider>
+      </ReactReduxFirebaseProvider>
     </Provider>
   );
 };
