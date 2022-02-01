@@ -1,13 +1,13 @@
 # UniSearch
 
-This project was developed by Gabriel Dela Torre
+A React application for searching universities
 
 ## Features
 
 The following are UniSearch's features:
 - User Authentication
-- Query University List
-- Query User Information (via Firebase)
+- Query University List (via https://github.com/Hipo/university-domains-list)
+- Query User Information
 - Subscribe to the application
 - Favourite a university
 - Search a university
