@@ -1,6 +1,8 @@
 # UniSearch
 
-A React application for searching universities
+A React application for searching universities.
+Currently deployed at https://univ-app-612ae.firebaseapp.com/
+Note: University API links in the deployed app do not work as they are not served over https. :(
 
 ## Features
 
