@@ -2341,7 +2341,15 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/redux-first-router@^2.1.8":
+"@types/redux-first-router-link@^1.4.5":
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/@types/redux-first-router-link/-/redux-first-router-link-1.4.5.tgz#093f40872af56554ff33fd71e4594be712faa670"
+  integrity sha512-Y8yXgTvU+7zOmZRIUoG/T9EClIKrEGKvizF+m0UqCwubW9sOWKn95cvAG1BdouZhGJjnKIhY4MiIyOIUlY5PxA==
+  dependencies:
+    "@types/react" "*"
+    "@types/redux-first-router" "*"
+
+"@types/redux-first-router@*", "@types/redux-first-router@^2.1.8":
   version "2.1.8"
   resolved "https://registry.yarnpkg.com/@types/redux-first-router/-/redux-first-router-2.1.8.tgz#4a959968635eb9a9d73c5cbbd01b2b5c26d42eec"
   integrity sha512-hU8HbAJ01pvZB8EOw5XENbpJp5aFvoohCboiCd0PetqqRWLDcUa46psWZpabWqt2kTQ1V/EsmB6qUMpUK9zY5w==
@@ -7694,7 +7702,7 @@ prompts@^2.0.1, prompts@^2.4.2:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.7.2:
+prop-types@^15.5.10, prop-types@^15.7.2:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -8370,6 +8378,16 @@ redux-firestore@^0.15.2:
     immer "9.0.12"
     lodash "^4.17.21"
     reduce-reducers "^1.0.4"
+
+redux-first-router-link@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/redux-first-router-link/-/redux-first-router-link-2.1.1.tgz#93097de2d0863578c15547d16e71688b4e8b763a"
+  integrity sha512-WjOuaMPWhdeWCFGpkcwSJqhhNa5+v9XJwZOrfZki+Nv51QO+klDb11xQEPiLFRPZvQ9yqv5waqRrnbCCZe7d0A==
+  dependencies:
+    path-to-regexp "^1.7.0"
+    prop-types "^15.5.10"
+    rudy-history "^1.0.0"
+    rudy-match-path "^0.3.0"
 
 redux-first-router@^2.1.5:
   version "2.1.5"

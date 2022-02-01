@@ -8,9 +8,9 @@ import { Routes } from '../redux/routing/routesMap';
 import { useTypedSelector } from '../utils/useTypedSelector';
 import { HomeView } from './Home/HomeView';
 import { LoginView } from './Login/LoginView';
-import { NotFoundView } from './NotFoundView';
+import { NotFoundView } from './NotFound/NotFoundView';
 import firebase from '../firebase';
-import { AuthProvider, useAuthContext } from '../providers/AuthProvider';
+import { AuthProvider, useAuthContext } from './AuthProvider';
 
 const rrfProps = {
   firebase,

@@ -1,32 +1,27 @@
-import { Typography, Input, Space, Button } from 'antd';
+import { Typography } from 'antd';
 import { UserOutlined, EyeTwoTone, EyeInvisibleOutlined } from '@ant-design/icons';
-import { useFirebase } from 'react-redux-firebase';
-import styled from 'styled-components';
+import { StyledSpace, StyledInput, StyledPassword, MainWrapper, ImgWrapper, FormWrapper } from './styles';
+import { AuthView, TAuthViewContentProps } from './types';
 import { ChangeEvent, useState } from 'react';
+import { Button } from '../../components';
+import { useAppDispatch } from '../../utils/useAppDispatch';
+import { createUser, loginUser } from '../../redux/modules/firebase/actions';
 
 const { Title, Text, Link } = Typography;
 
-const StyledSpace = styled(Space)`
-  width: 400px;
-`;
-
-interface TAuthViewContentProps {
-  swapView: (view: string) => void;
-}
-
 const RegisterContent = ({ swapView }: TAuthViewContentProps) => {
-  const firebase = useFirebase();
+  const dispatch = useAppDispatch();
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
   const [cPassword, setCPassword] = useState('');
   const [isError, setIsError] = useState(false);
 
   const handleCreateAccount = () => {
-    firebase.createUser({ email: emailAddress, password });
+    dispatch(createUser({ email: emailAddress, password }));
   };
 
   const handleGoToLogin = () => {
-    swapView('login');
+    swapView(AuthView.Login);
   };
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -49,22 +44,25 @@ const RegisterContent = ({ swapView }: TAuthViewContentProps) => {
 
   return (
     <StyledSpace direction='vertical'>
-      <Title> Welcome to UniSearch! </Title>
-      <Input
+      <Title>
+        {' '}
+        Welcome to <span style={{ color: '#192fa9' }}>Uni</span>Search!{' '}
+      </Title>
+      <StyledInput
         size='large'
         value={emailAddress}
         placeholder='Input email address'
         prefix={<UserOutlined />}
         onChange={handleEmailChange}
       />
-      <Input.Password
+      <StyledPassword
         size='large'
         placeholder='Input password'
         value={password}
         iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
         onChange={handlePasswordChange}
       />
-      <Input.Password
+      <StyledPassword
         size='large'
         placeholder='Confirm password'
         value={cPassword}
@@ -75,6 +73,7 @@ const RegisterContent = ({ swapView }: TAuthViewContentProps) => {
         {' '}
         Create Account{' '}
       </Button>
+      <br />
       <div>
         <Text>Already have an account? </Text>
         <Link onClick={handleGoToLogin}> Log in here. </Link>
@@ -84,16 +83,16 @@ const RegisterContent = ({ swapView }: TAuthViewContentProps) => {
 };
 
 export const LoginContent = ({ swapView }: TAuthViewContentProps) => {
-  const firebase = useFirebase();
+  const dispatch = useAppDispatch();
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    firebase.login({ email: emailAddress, password });
+    dispatch(loginUser({ email: emailAddress, password }));
   };
 
   const handleGoToRegister = () => {
-    swapView('register');
+    swapView(AuthView.Register);
   };
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -109,8 +108,13 @@ export const LoginContent = ({ swapView }: TAuthViewContentProps) => {
   return (
     <StyledSpace direction='vertical'>
       <Title> Log in. </Title>
-      <Input size='large' placeholder='Input email address' prefix={<UserOutlined />} onChange={handleEmailChange} />
-      <Input.Password
+      <StyledInput
+        size='large'
+        placeholder='Input email address'
+        prefix={<UserOutlined />}
+        onChange={handleEmailChange}
+      />
+      <StyledPassword
         size='large'
         placeholder='Input password'
         iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
@@ -120,6 +124,7 @@ export const LoginContent = ({ swapView }: TAuthViewContentProps) => {
         {' '}
         Log in{' '}
       </Button>
+      <br />
       <div>
         <Text>Don't have an account? </Text>
         <Link onClick={handleGoToRegister}> Create your account. </Link>
@@ -129,15 +134,22 @@ export const LoginContent = ({ swapView }: TAuthViewContentProps) => {
 };
 
 export const LoginView = () => {
-  const [authView, setAuthView] = useState('register');
+  const [authView, setAuthView] = useState(AuthView.Register);
 
-  const handleSwapView = (view: string) => {
+  const handleSwapView = (view: AuthView) => {
     setAuthView(view);
   };
 
-  return authView === 'login' ? (
-    <LoginContent swapView={handleSwapView} />
-  ) : (
-    <RegisterContent swapView={handleSwapView} />
+  return (
+    <MainWrapper>
+      <ImgWrapper />
+      <FormWrapper>
+        {authView === AuthView.Login ? (
+          <LoginContent swapView={handleSwapView} />
+        ) : (
+          <RegisterContent swapView={handleSwapView} />
+        )}
+      </FormWrapper>
+    </MainWrapper>
   );
 };
