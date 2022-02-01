@@ -71,7 +71,7 @@ export const HomeList = () => {
 
   const renderFavouriteSection = () => {
     return (
-      <ContentSection>
+      <ContentSection data-testid='home-favourite-section'>
         <ContentHeader>
           <Title level={2}> My Favourites </Title>
           <Link style={{ margin: '0' }} disabled={userFavourites.length === 0} onClick={handleViewMoreClick}>
@@ -117,7 +117,7 @@ export const HomeList = () => {
 
   const renderCurrentLocationSection = () => {
     return (
-      <ContentSection>
+      <ContentSection data-testid='home-all-univ-section'>
         <ContentHeader>
           <Title level={2}>
             {' '}

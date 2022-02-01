@@ -52,7 +52,7 @@ export const SearchList = () => {
     return (
       <ContentHeader>
         <ContentTitle>
-          <BackButton onClick={handleBackToHome}>
+          <BackButton data-testid='search-back-btn' onClick={handleBackToHome}>
             <ArrowLeftOutlined />
           </BackButton>
           <Title level={2} style={{ margin: '0' }}>

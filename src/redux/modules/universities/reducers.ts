@@ -1,6 +1,6 @@
 import { TUniversityActionTypes, TUniversityState, UniversityActions, AppContentView } from './types';
 
-const initialState: TUniversityState = {
+export const initialState: TUniversityState = {
   universities: [],
   currentCountry: '',
   isLoading: false,

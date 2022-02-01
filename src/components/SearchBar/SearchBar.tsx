@@ -47,7 +47,7 @@ export const SearchBar = ({ onSearch }: { onSearch: (search: TGetUniversitiesTyp
       <StyledInput size='large' value={searchUniv} placeholder='University name' onChange={handleUnivChange} />
       <Divider type='vertical' />
       <StyledInput size='large' value={searchCtry} placeholder='Country' onChange={handleCountryChange} />
-      <Button size='large' onClick={handleSearchBtn}>
+      <Button data-testid='search-btn' size='large' onClick={handleSearchBtn}>
         {' '}
         Search{' '}
       </Button>

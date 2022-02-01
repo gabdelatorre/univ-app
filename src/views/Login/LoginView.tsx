@@ -9,7 +9,7 @@ import { createUser, loginUser } from '../../redux/modules/firebase/actions';
 
 const { Title, Text, Link } = Typography;
 
-const RegisterContent = ({ swapView }: TAuthViewContentProps) => {
+export const RegisterContent = ({ swapView }: TAuthViewContentProps) => {
   const dispatch = useAppDispatch();
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
@@ -49,6 +49,7 @@ const RegisterContent = ({ swapView }: TAuthViewContentProps) => {
         Welcome to <span style={{ color: '#192fa9' }}>Uni</span>Search!{' '}
       </Title>
       <StyledInput
+        data-testid='reg-email-input'
         size='large'
         value={emailAddress}
         placeholder='Input email address'
@@ -56,6 +57,7 @@ const RegisterContent = ({ swapView }: TAuthViewContentProps) => {
         onChange={handleEmailChange}
       />
       <StyledPassword
+        data-testid='reg-pass-input'
         size='large'
         placeholder='Input password'
         value={password}
@@ -63,20 +65,31 @@ const RegisterContent = ({ swapView }: TAuthViewContentProps) => {
         onChange={handlePasswordChange}
       />
       <StyledPassword
+        data-testid='reg-cpass-input'
         size='large'
         placeholder='Confirm password'
         value={cPassword}
         iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
         onChange={handleCPasswordChange}
       />
-      <Button type='primary' size='large' block onClick={handleCreateAccount} disabled={isButtonDisabled}>
+      <Button
+        data-testid='create-account-btn'
+        type='primary'
+        size='large'
+        block
+        onClick={handleCreateAccount}
+        disabled={isButtonDisabled}
+      >
         {' '}
         Create Account{' '}
       </Button>
       <br />
       <div>
         <Text>Already have an account? </Text>
-        <Link onClick={handleGoToLogin}> Log in here. </Link>
+        <Link data-testid='go-to-login-btn' onClick={handleGoToLogin}>
+          {' '}
+          Log in here.{' '}
+        </Link>
       </div>
     </StyledSpace>
   );
@@ -120,14 +133,17 @@ export const LoginContent = ({ swapView }: TAuthViewContentProps) => {
         iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
         onChange={handlePasswordChange}
       />
-      <Button type='primary' size='large' block onClick={handleLogin}>
+      <Button data-testid='login-btn' type='primary' size='large' block onClick={handleLogin}>
         {' '}
         Log in{' '}
       </Button>
       <br />
       <div>
         <Text>Don't have an account? </Text>
-        <Link onClick={handleGoToRegister}> Create your account. </Link>
+        <Link data-testid='go-to-register-btn' onClick={handleGoToRegister}>
+          {' '}
+          Create your account.{' '}
+        </Link>
       </div>
     </StyledSpace>
   );

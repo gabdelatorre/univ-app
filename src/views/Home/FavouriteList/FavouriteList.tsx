@@ -26,6 +26,9 @@ export const FavouriteList = () => {
 
   useEffect(() => {
     const startIdx = (currentPage - 1) * HOME_PAGE_SIZE;
+    const test = universitySelector.filter((uni) => {
+      return userFavourites.includes(uni.name);
+    });
     const filteredUniversities = universitySelector.filter((uni) => userFavourites.includes(uni.name));
     filteredUniversities.sort((a, b) =>
       (a as unknown as Record<string, string>)[currentSort] > (b as unknown as Record<string, string>)[currentSort]
@@ -53,7 +56,7 @@ export const FavouriteList = () => {
     return (
       <ContentHeader>
         <ContentTitle>
-          <BackButton onClick={handleBackToHome}>
+          <BackButton data-testid='favourite-back-btn' onClick={handleBackToHome}>
             <ArrowLeftOutlined />
           </BackButton>
           <Title level={2} style={{ margin: '0' }}>

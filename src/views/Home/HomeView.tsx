@@ -104,7 +104,7 @@ export const HomeContainer = () => {
             <Title level={3}> Stay tuned! </Title>
             <Text> Subscribe to our newsletters, and never miss out on universities that might interest you. </Text>
           </div>
-          <Button size='large' onClick={handleSubscribe} style={{ width: 150 }}>
+          <Button data-testid='subscribe-btn' size='large' onClick={handleSubscribe} style={{ width: 150 }}>
             {isUserSubscribed ? 'Unsubscribe' : 'Subscribe'}
           </Button>
         </SubscriptionBanner>

@@ -9,6 +9,7 @@ import {
   TGetUniversitiesError,
   TGetUniversitiesPending,
   TGetUniversitiesSuccess,
+  TUniversityDetails,
   UniversityActions,
 } from './types';
 
@@ -16,7 +17,12 @@ export function* getUniversitiesSaga(action: TGetUniversitiesPending): SagaItera
   const queryStr = buildQuery(action.payload);
   try {
     const { data } = yield call(api, { url: `http://universities.hipolabs.com/search${queryStr}` });
-    yield put<TGetUniversitiesSuccess>({ type: UniversityActions.GET_UNIVERSITIES_SUCCESS, payload: data });
+    const dataList = data as TUniversityDetails[];
+    // needs to be filtered by unique keys as sometimes the API provides multiple duplicates
+    const filteredList = Array.from(new Set(dataList.map((item) => item.name))).map(
+      (uniq) => dataList.find((dat) => dat.name === uniq) ?? ({} as TUniversityDetails)
+    );
+    yield put<TGetUniversitiesSuccess>({ type: UniversityActions.GET_UNIVERSITIES_SUCCESS, payload: filteredList });
   } catch (error) {
     yield put<TGetUniversitiesError>({ type: UniversityActions.GET_UNIVERSITIES_ERROR });
   }
